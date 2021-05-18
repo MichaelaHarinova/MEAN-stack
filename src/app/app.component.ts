@@ -38,4 +38,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): any {
     this.getRequest('http://localhost:9001/allFriends').then(res => console.log(this.allFriends));
   }
+
+  public async deleteFriend(email: string): Promise<any> {
+    await fetch('http://localhost:9001/allFriends', {method: 'get', headers: {'Content-Type': 'application/json'}})
+      .then(response => {
+        return response.json() as Promise<any>;
+      })
+      .then(response => {
+        return this.allFriends = response;
+      });
+    this.allFriends = this.allFriends.filter(friend => friend.email !== email);
+  }
 }
