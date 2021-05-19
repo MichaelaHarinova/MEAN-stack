@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Friend} from './friend';
-import {AddFriendService} from './add-friend.service';
+import {FriendService} from './friend.service';
 import {OnInit} from '@angular/core';
 
 @Component({
@@ -10,18 +10,17 @@ import {OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'MEAN-stack';
-  public allFriends = [{firstName: null, lastName: null, email: null, phoneNumber: null, language: null}];
-  constructor(
-    private addFriendService: AddFriendService,
-  ) {
-    this.addFriendService = addFriendService;
-  }
-  languages: string[] = ['HTML', 'CSS', 'JavaScript', 'C#', 'Symfony', '.NET', 'PHP', 'Angular'];
+  public allFriends = [{firstName: null, lastName: null, email: null, phoneNumber: null}];
   friend = new Friend('', '', '', 0);
-
+  constructor(
+    private friendService: FriendService,
+  ) {
+    this.friendService = friendService;
+  }
   onSubmit(): void {
-    this.addFriendService.addFriend(this.friend).subscribe
-    (data => this.getRequest('http://localhost:9001/allFriends').then(res => console.log(this.allFriends)), error => console.error(error));
+    this.friendService.addFriend(this.friend).subscribe
+    (data => this.getRequest
+    ('http://localhost:9001/addFriend').then(res => console.log(this.allFriends)), error => console.error(error));
   }
 
   async getRequest(url: string): Promise<any> {
@@ -40,13 +39,15 @@ export class AppComponent implements OnInit {
   }
 
   public async deleteFriend(email: string): Promise<any> {
-    await fetch('http://localhost:9001/allFriends', {method: 'get', headers: {'Content-Type': 'application/json'}})
-      .then(response => {
-        return response.json() as Promise<any>;
-      })
-      .then(response => {
-        return this.allFriends = response;
-      });
-    this.allFriends = this.allFriends.filter(friend => friend.email !== email);
+    this.friendService.deleteFriend(email).subscribe
+    (data => this.getRequest
+    ('http://localhost:9001/deleteFriend').then(res => console.log(this.allFriends)), error => console.error(error));
+    await fetch('http://localhost:9001/allFriends', {method: 'get', headers: {'Content-Type': 'application/json'}});
+  //    .then(response => {
+  //      return response.json() as Promise<any>;
+  //    })
+  //    .then(response => {
+  //      return this.allFriends = response;
+  //    });
   }
 }
