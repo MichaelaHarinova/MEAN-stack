@@ -14,7 +14,7 @@ export class FriendService {
   addFriend(friend: Friend ): Observable<any>{
     return this.http.post(this.url, friend);
   }
-  deleteFriend(email: string): Observable<any>{
-    return this.http.post(this.urlDel, email);
+  deleteFriend(friend: Friend): Observable<any>{
+    return this.http.post(this.urlDel, friend);
   }
 }

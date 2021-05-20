@@ -38,16 +38,8 @@ export class AppComponent implements OnInit {
     this.getRequest('http://localhost:9001/allFriends').then(res => console.log(this.allFriends));
   }
 
-  public async deleteFriend(email: string): Promise<any> {
-    this.friendService.deleteFriend(email).subscribe
-    (data => this.getRequest
-    ('http://localhost:9001/deleteFriend').then(res => console.log(this.allFriends)), error => console.error(error));
-    await fetch('http://localhost:9001/allFriends', {method: 'get', headers: {'Content-Type': 'application/json'}});
-  //    .then(response => {
-  //      return response.json() as Promise<any>;
-  //    })
-  //    .then(response => {
-  //      return this.allFriends = response;
-  //    });
+  public async deleteFriend(friend: Friend): Promise<any> {
+    this.friendService.deleteFriend(friend).subscribe
+    (response => this.getRequest('http://localhost:9001/allFriends').then(res => console.log(response)), error => console.error(error));
   }
 }
