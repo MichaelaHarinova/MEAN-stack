@@ -26,12 +26,8 @@ app.post('/addFriend', function (request, response) {
 
 app.post('/deleteFriend', function (request, response) {
   console.log(request.body);
-   Friend.deleteOne({ email: request.body }).then(r =>response.status(200).send({"message": "Data deleted"}));
+   Friend.deleteOne({ email: request.body.email }).then(r =>response.status(200).send({"message": "Data deleted"}));
   });
-
-app.post('/deleteFriend', function (request, response){
-  Friend.deleteOne({email: request.body.email}).then(r => response.status(200).send({"message": "Data received"}));
-});
 
 app.listen(PORT, function () {
 });

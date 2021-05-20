@@ -62,7 +62,7 @@
       <h3 class="name"> {{ friend.firstName +' '+ friend.lastName }}</h3>
       <span class="other"> {{ friend.email }}</span>
       <span class="other"> {{ friend.phoneNumber }}</span>
-      <button class="btn btn-outline-danger" data-userEmail="{{ friend.email }}" (click)="deleteFriend (friend)">Delete friend</button>
+      <button class="btn btn-outline-danger" (click)="deleteFriend (friend)">Delete friend</button>
     </div>
   </div>
   <br>

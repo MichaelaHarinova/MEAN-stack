@@ -10,7 +10,12 @@ import {OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'MEAN-stack';
-  public allFriends = [{firstName: null, lastName: null, email: null, phoneNumber: null}];
+  public allFriends = [{
+    firstName: null,
+    lastName: null,
+    email: null,
+    phoneNumber: null
+  }];
   friend = new Friend('', '', '', 0);
   constructor(
     private friendService: FriendService,
@@ -19,13 +24,13 @@ export class AppComponent implements OnInit {
   }
   onSubmit(): void {
     this.friendService.addFriend(this.friend).subscribe
-    (data => this.getRequest
-    ('http://localhost:9001/addFriend').then(res => console.log(this.allFriends)), error => console.error(error));
+    (data => this.getRequest().then(res => console.log(this.allFriends)),
+        error => console.error(error));
   }
 
-  async getRequest(url: string): Promise<any> {
+  async getRequest(): Promise<any> {
     // custom getter
-    await fetch(url, {
+    await fetch('http://localhost:9001/allFriends', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -35,11 +40,11 @@ export class AppComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit(): any {
-    this.getRequest('http://localhost:9001/allFriends').then(res => console.log(this.allFriends));
+    this.getRequest().then(res => console.log(this.allFriends));
   }
 
   public async deleteFriend(friend: Friend): Promise<any> {
     this.friendService.deleteFriend(friend).subscribe
-    (response => this.getRequest('http://localhost:9001/allFriends').then(res => console.log(response)), error => console.error(error));
+    (response => this.getRequest().then(res => console.log(response)), error => console.error(error));
   }
 }
