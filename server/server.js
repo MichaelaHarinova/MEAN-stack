@@ -28,6 +28,17 @@ app.post('/deleteFriend', function (request, response) {
   console.log(request.body);
    Friend.deleteOne({ email: request.body.email }).then(r =>response.status(200).send({"message": "Data deleted"}));
   });
+/*
+app.get('/editFriend', function (request, response) {
+  console.log(request.body);
+  Friend.replaceOne({ email: request.body.email }, request.body).then(r =>response.status(200).send({"message": "Data updated"}));
+});
+*/
+
+app.post('/updateFriend', function (request, response) {
+  console.log(request.body);
+  Friend.replaceOne({ email: request.body.email }, request.body).then(r =>response.status(200).send({"message": "Data updated"}));
+});
 
 app.listen(PORT, function () {
 });

@@ -55,6 +55,7 @@
         <p class="invalid">Please, enter a valid phone number without spaces.</p>
       </div>
       <button class="btn btn-secondary" type="submit" [disabled]="formName.form.invalid">Submit</button>
+      <!-- <button class="btn btn-outline-secondary" type="submit" (click)="updateFriend(friend)">Update</button> -->
     </form>
   </div>
   <div class="div">
@@ -62,7 +63,8 @@
       <h3 class="name"> {{ friend.firstName +' '+ friend.lastName }}</h3>
       <span class="other"> {{ friend.email }}</span>
       <span class="other"> {{ friend.phoneNumber }}</span>
-      <button class="btn btn-outline-danger" (click)="deleteFriend (friend)">Delete friend</button>
+      <button class="btn btn-outline-secondary" (click)="updateFriend(friend)">Edit</button>
+      <button class="btn btn-outline-danger" (click)="deleteFriend (friend)">Delete</button>
     </div>
   </div>
   <br>
